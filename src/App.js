@@ -1,18 +1,26 @@
 import React from 'react';
-import {BrowserRouter,Route} from 'react-router-dom'
+import {HashRouter,Route} from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Home from './components/Home'
+import Topic from './components/Topic'
+import Message from './components/Message'
+import PeopleCenter from './components/PeopleCenter'
 class App extends React.Component{
     render(){
         return(
-          <BrowserRouter>
+          <HashRouter>
               <div>
                   <Header/>
-                  <Route path='/' component={Home} />
+                  <div style={{minHeight:'300px'}}>
+                    <Route path='/' exact component={Home} />
+                    <Route path='/topic/:id' component={Topic} />
+                    <Route path='/message' component={Message} />
+                    <Route path='/user' component={PeopleCenter} />
+                  </div>
                   <Footer/>
               </div>
-          </BrowserRouter>
+          </HashRouter>
         )
     }
 }

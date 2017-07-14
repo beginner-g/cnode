@@ -1,12 +1,97 @@
 .header{
     display: flex;
     height: 80px;
-    background-color: #7dbcea;
+    background-color: #455A64;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 0 10px;
 }
-.header h1{
+.header img{
+    width: 80px;
+    height: 60px;
+}
+.topics{
+    padding: 0 10px;
+}
+.topic{
+    display:flex;
+    padding:5px 0;
+}
+.topic img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #eee;
+    margin-right: 10px;
+}
+.topic>div{
+    flex-grow: 1;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.topic h3{
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.topic .tab{
+    background-color: #ffc107;
+    padding:0 5px;
+    border-radius: 2px;
     color: #fff;
+    margin-right: 10px;
+}
+.topic-con{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.content{
+    line-height: 1.7;
+}
+.content img{
+    width: 100%;
+
+}
+.content-down{
+    margin-top: 10px;
+    margin-left: 10px;
+    display: flex;
+}
+.comment{
+    display: flex;
+}
+.comment-icon{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 10px;
+}
+.comment-right{
+    flex-grow: 1;
+}
+.newcontent{
+    padding-left: 10px;
+    padding-top: 20px;
+}
+.home h1{
+    background-color: #ccc;
+    color: green;
+    padding-left: 10px;
+}
+.home img{
+    margin-top: 10px;
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin-left: 10px;
+}
+.home span{
+    margin-left: 10px;
+    font-size: 20px;
+    display: block;
+    margin-top: 20px;
+}
+.home p{
+    margin-left: 10px;
+    font-size: 16px;
 }
