@@ -16,7 +16,7 @@ class App extends React.Component{
                     <Route path='/' exact component={Home} />
                     <Route path='/topic/:id' component={Topic} />
                     <Route path='/message' component={Message} />
-                    <Route path='/user' component={PeopleCenter} />
+                    <Route path='/user/:loginname' component={PeopleCenter} />
                   </div>
                   <Footer/>
               </div>

@@ -1,7 +1,6 @@
 import React from 'react'
 import { Spin } from 'antd';
 import {Link,NavLink} from 'react-router-dom'
-
 class ShowTopics extends React.Component{
     render(){
         // console.log(this.props.data)
@@ -17,7 +16,7 @@ class ShowTopics extends React.Component{
                     data.length===0? <div style={{textAlign: 'center'}}><Spin size="large" /></div> :
                     data.map(item=>(
                         <div key={item.id} className='topic'>
-                            <NavLink to={{pathname:`/user/${item.author.loginname}`,state:item.author.loginname}}><img src={item.author.avatar_url} alt="avatar_url" />
+                            <NavLink to={`/user/${item.author.loginname}`}><img src={item.author.avatar_url} alt="avatar_url" />
                             </NavLink>
                             <div>
                                 <h3 title={item.title}><Link to={`/topic/${item.id}`}>{item.title}</Link></h3>

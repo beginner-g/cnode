@@ -77,6 +77,22 @@ class Topic extends React.Component{
     .then(res=>this.getData())
     .catch(err=>message.error('点赞失败'))
   }
+  handleCollect(accesstoken,topic_id){
+    if (sessionStorage.accesstoken) {
+      var accesstoken = sessionStorage.accesstoken
+      var topic_id = this.props.match.params.id;
+      var data1 = {accesstoken,topic_id}
+      let {success} = this.state
+    }else{
+      alert('请先登录')
+      return
+    }
+    axios.post(`${url}/topic_collect/collect`,data1)
+    .then( res => {this.setState({success: true});message.success('收藏成功')})
+    .catch( err => message.error('收藏失败'))
+
+
+  }
   render(){
     let {data,comment,visible,reply,replyInfo}=this.state
     // console.log(data)
@@ -91,6 +107,7 @@ class Topic extends React.Component{
                       <Avatar src={data.author.avatar_url} />
                       <span>回复量：{data.reply_count}</span>
                       <span>阅读量：{data.visit_count}</span>
+                      <Button type="primary" onClick={this.handleCollect.bind(this)}>收藏</Button>
                   </div>
                   <div className='content' dangerouslySetInnerHTML={{__html:data.content}}/>
                   <h1>发表评论</h1>

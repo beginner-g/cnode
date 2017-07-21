@@ -1,70 +1,88 @@
 import React from 'react'
 import {url} from '../config'
-import axios from 'axios'
-import {message,Avatar,Spin,Card } from 'antd'
-import moment from 'moment'
-import {Link,NavLink} from 'react-router-dom'
+import axios from "axios"
+import { message, Card, BackTop, Avatar, Input, Button, Icon, Modal } from 'antd';
+import moment from 'moment';
+import {Link} from 'react-router-dom'
+
+
+
 class PeopleCenter extends React.Component{
   constructor(){
     super()
     this.state={
-      data:null
+      data: null
     }
+  }
+  getData(){
+    let loginname = this.props.match.params.loginname
+    axios.get(`${url}/user/${loginname}`)
+      .then(res=>this.setState({data: res.data.data}))
+      .catch(err=> message.error('数据请求失败'))
   }
   componentDidMount(){
-    let loginname=this.props.location.state
-    axios.get(`${url}/user/${loginname}`)
-        .then(res=>this.setState({data:res.data.data}))
-        .catch(err=>message.error('用户信息请求失败'))
+    this.getData()
   }
-    render(){
-        let {data} =this.state
-        console.log(data)
-        return(
-            <div>
-              {
-                data?
-                  (
-                    <Card className='home'>
-                      <Link to='/'><h1>主页</h1></Link>
-                      <img src={data.avatar_url} alt="avatar_url"/>
-                      <span>{data.loginname}</span>
-                      <p>积分 {data.score}</p>
-                      <h1>最近创建的话题</h1>
-                      {
-                        data.recent_topics.map(item=>(
-                          <p key={item.id}>
-                            <Link to={`/user/${item.author.loginname}`}>
-                              <Avatar shape="square" src={item.author.avatar_url} />
-                            </Link>
-                            <Link to={`/uesr/${item.author.loginname}`}>{item.author.loginname}
-                            </Link>
-                            <Link to={`/topic/${item.id}`}>{item.title}
-                            </Link>
-                          </p>
-                        ))
-                      }
-                      <h1>最近参与的话题</h1>
-                      {
-                        data.recent_replies.map(item=>(
-                            <p key={item.id}>
-                              <Link to={`/user/${item.author.loginname}`}>
-                                <Avatar shape="square" src={item.author.avatar_url} />
-                              </Link>
-                              <Link to={`/uesr/${item.author.loginname}`}>{item.author.loginname}
-                              </Link>
-                              <Link to={`/topic/${item.id}`}>{item.title}</Link>
-                            </p>
-                          ))
-                      }
-                    </Card>
-                  )
-                :
-                <div style={{textAlign:'center'}}><Spin size="large" /></div>
-              }
+  handleChang(){
+    this.componentDidMount()
 
-            </div>
-            )
-    }
+  }
+  render(){
+    let {data} = this.state
+    console.log(data)
+    return(
+      <div>
+        <Card loading={!data}>
+
+          {
+            data ?
+            (
+              <div>
+                <h1>主页</h1>
+                <div>
+                  <Avatar src={data.avatar_url}/>
+                  <span>{data.loginname}</span>
+                </div>
+                <p>{data.score} &nbsp;&nbsp;积分</p>
+                <p>注册时间：&nbsp;&nbsp;{moment(data.create_at).fromNow()}</p>
+                <div>
+                  <h1>最近创建的话题</h1>
+                            {
+                                data.recent_topics.map(item=>(
+                                  <p key={item.id}>
+                                    <Link to={`/user/${item.author.loginname}`}>
+                                      <img src={item.author.avatar_url} alt="aaa"/>
+                                    </Link>
+                                    <Link to={`/uesr/${item.author.loginname}`}>{item.author.loginname}
+                                    </Link>
+                                    <Link to={`/topic/${item.id}`}className='titie'>{item.title}
+                                    </Link>
+                                  </p>
+                                ))
+                            }
+                            <h1>最近参与的话题</h1>
+                          {
+                              data.recent_replies.map(item=>(
+                                  <p key={item.id}>
+                                    <Link to={`/user/${item.author.loginname}`}>
+                                      <img src={item.author.avatar_url} alt="avatar_url" onClick={this.handleChang.bind(this) } />
+                                    </Link>
+                                    <Link to={`/uesr/${item.author.loginname}`}>{item.author.loginname}
+                                    </Link>
+                                    <Link to={`/topic/${item.id}`} className='titie'>{item.title}</Link>
+                                  </p>
+                                ))
+                          }
+
+
+                </div>
+              </div>
+            ) : null
+
+          }
+        </Card>
+      </div>
+      )
+  }
 }
 export default PeopleCenter
